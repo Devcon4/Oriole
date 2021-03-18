@@ -7,6 +7,7 @@ import html from '@rollup/plugin-html';
 import copy from 'rollup-plugin-copy';
 import { indexHtml } from './src/indexHtml.js';
 import dev from 'rollup-plugin-dev';
+import del from 'rollup-plugin-delete';
 
 const extensions = ['.js', '.ts'];
 
@@ -20,13 +21,14 @@ const config = {
 		dir: 'dist',
 		format: 'es',
 		name: 'Oriole',
-		entryFileNames: '[name]-[hash].js',
-		chunkFileNames: '[name]-[hash].js',
+		entryFileNames: '[name].[hash].js',
+		chunkFileNames: '[hash].js',
 	},
 
 	plugins: [
+		del({ targets: 'dist/*' }),
 		html({
-			template: indexHtml,
+			template: (opts) => indexHtml(opts, ['app.']),
 		}),
 		minifyHTML(),
 		copy(copyConfig),
@@ -51,7 +53,7 @@ if (!isDevelopment) {
 	config.plugins = [
 		...config.plugins,
 		terser({}),
-		dev({ dirs: ['dist'], host: 'localhost', spa: true }),
+		dev({ dirs: ['dist'], host: 'localhost', spa: 'dist/index.html' }),
 	];
 }
 

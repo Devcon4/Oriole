@@ -6,23 +6,45 @@ import {
 	query,
 	css,
 } from 'lit-element';
-import { RouterSlot, IRoute } from 'router-slot';
+import { RouterSlot, IRoute, queryParentRouterSlot } from 'router-slot';
 import { flexHostStyles, globalStyles } from './globalStyles';
+import './components/controlbar.component';
 
-const routes: Array<IRoute> = [];
+const routes: Array<IRoute> = [
+	{
+		path: 'dashboard',
+		component: async () =>
+			(await import('./components/dashboard.page')).DashboardPage,
+	},
+	{
+		path: 'discover',
+		component: async () =>
+			await (await import('./components/discover.page')).DiscoverPage,
+	},
+	{
+		path: '**',
+		redirectTo: 'dashboard',
+		pathMatch: 'full',
+	},
+];
 
 @customElement('ori-app')
-export default class AppElement extends LitElement {
-	@query('router-slot') routerSlotRef!: RouterSlot;
+export class AppElement extends LitElement {
+	@query('router-slot') $routerSlot!: RouterSlot;
+
+	get data() {
+		return queryParentRouterSlot(this);
+	}
 
 	firstUpdated(props: PropertyValues) {
 		super.firstUpdated(props);
-		this.routerSlotRef.add(routes);
+		this.$routerSlot.add(routes);
 	}
 	render() {
 		return html`<div class="app ori-flex">
-			<h1>I Work!</h1>
+			<h1>I Work still!</h1>
 			<router-slot class="ori-flex"></router-slot>
+			<ori-controlbar></ori-controlbar>
 		</div>`;
 	}
 

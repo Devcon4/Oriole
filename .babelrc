@@ -3,13 +3,13 @@
       ["@babel/env", {
         "useBuiltIns": "usage",
         "corejs": 3,
-        "targets": "> 0.25%, not dead"
+        "targets": "> 5.0%, not dead"
       }],
       "@babel/typescript" 
     ],
     "plugins": [
-      ["@babel/plugin-proposal-decorators", {"legacy": true}],
-      ["@babel/proposal-class-properties", {"loose": true}],
+      ["@babel/plugin-proposal-decorators", {"decoratorsBeforeExport": true}],
+      ["@babel/proposal-class-properties"],
       "@babel/proposal-object-rest-spread"
     ]
   }

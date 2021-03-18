@@ -10,16 +10,13 @@ const makeHtmlAttributes = (attributes) => {
 	);
 };
 
-/** @type {(options: import('@rollup/plugin-html').RollupHtmlOptions) => string} */
-export const indexHtml = ({
-	attributes,
-	meta,
-	title,
-	files,
-	publicPath,
-	fileName,
-}) => {
+/** @type {(options: import('@rollup/plugin-html').RollupHtmlOptions, entryPointWhitelist: string[]) => string} */
+export const indexHtml = (
+	{ attributes, meta, title, files, publicPath, fileName },
+	entryPointWhitelist
+) => {
 	const scripts = (files.js || [])
+		.filter((f) => entryPointWhitelist.some((e) => f.fileName.includes(e)))
 		.map(({ fileName }) => {
 			const attrs = makeHtmlAttributes(attributes.script);
 			return `<script src="${publicPath}${fileName}"${attrs}></script>`;
@@ -42,6 +39,9 @@ export const indexHtml = ({
     <!DOCTYPE html>
     <html ${makeHtmlAttributes(attributes.html)}>
       <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+        <meta charset="utf-8">
+        <link rel="shortcut icon">
         <base href="/">
         ${metas}
         <title>${title}</title>

@@ -10,13 +10,15 @@ export const flexHostStyles = css`
 `;
 
 export const globalStyles = css`
-	.bn-flex,
-	html,
-	body {
+	.ori-flex {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
 		min-height: 0px;
+	}
+
+	.fill {
+		flex: 1;
 	}
 `;
 

@@ -42,12 +42,10 @@ export class AppElement extends LitElement {
 	}
 	render() {
 		return html`<div class="app ori-flex">
-			<h1>I Work still!</h1>
+			<h1 class="text">I Work still!</h1>
 			<router-slot class="ori-flex"></router-slot>
-			<ori-controlbar></ori-controlbar>
 		</div>`;
 	}
-
 	static get styles() {
 		return [globalStyles, flexHostStyles, css``];
 	}

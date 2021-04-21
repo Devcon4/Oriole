@@ -14,6 +14,18 @@ export class NavbarComponent extends LitElement {
 	}
 
 	static get styles() {
-		return [globalStyles, css``];
+		return [
+			globalStyles,
+			css`
+				:host {
+					backdrop-filter: blur(2px);
+				}
+			`,
+			css`
+				.title {
+					font-size: 12px;
+				}
+			`,
+		];
 	}
 }

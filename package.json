@@ -37,7 +37,7 @@
     "@types/jest": "^26.0.12",
     "autoprefixer": "^10.2.5",
     "core-js": "^3.8.2",
-    "jest": "^26.4.2",
+    "jest": "^28.1.0",
     "lit-element": "^2.4.0",
     "postcss": "^8.2.8",
     "rollup": "^2.26.9",
